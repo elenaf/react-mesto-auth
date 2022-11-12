@@ -155,6 +155,7 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isInfoTooltipOpen: false,
+      isErrorTooltipOpen: false,
       selectedCard: null,
     });
   }
@@ -176,7 +177,7 @@ class App extends React.Component {
 
   handleRegister = ({ password, email }) => {
     Auth.register(password, email)
-        .then((res) => {console.log(res);
+        .then((res) => {
             if(res){
               console.log('success');
                 this.setState({
@@ -187,16 +188,15 @@ class App extends React.Component {
                     this.props.history.push('/sign-in');
                     
                 })
-            } else {
-                this.setState({
-                  isErrorTooltipOpen: true,
-                    message: 'Что-то пошло не так! Попробуйте ещё раз.'
-                })
             }
+            }
+        )
+        .catch((err) => {
+          this.setState({
+            isErrorTooltipOpen: true,
+              message: 'Что-то пошло не так! Попробуйте ещё раз.'
+          })
         })
-    /* this.setState({
-      isInfoTooltipOpen: true,
-    }) */
   }
 
   tokenCheck() {
@@ -291,6 +291,7 @@ class App extends React.Component {
         
         < InfoTooltip 
           name="registration-result"
+          className="popup__registration-result_type_success"
           isOpen={this.state.isInfoTooltipOpen}
           onClose={this.closeAllPopups}
           registrationResult={this.state.registrationResult.successMessage}
@@ -298,6 +299,7 @@ class App extends React.Component {
 
         < ErrorTooltip 
           name="registration-result"
+          className="popup__registration-result_type_error"
           isOpen={this.state.isErrorTooltipOpen}
           onClose={this.closeAllPopups}
           registrationResult={this.state.registrationResult.errorMessage}

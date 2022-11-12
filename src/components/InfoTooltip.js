@@ -7,7 +7,7 @@ class InfoTooltip extends React.Component {
     render() {
         return (
             <Popup isOpen={ this.props.isOpen } name={ this.props.name } onClose={ this.props.onClose }>
-                <Tooltip message={this.props.registrationResult}/>
+                <Tooltip message={this.props.registrationResult} className={this.props.className}/>
            </Popup>
         )
     }
