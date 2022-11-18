@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink, Route, Switch } from 'react-router-dom';
 
 export default function Header(props) {
-  let email = props.userData;
-  let loggedIn = props.loggedIn;
-  let signOut = props.onSignOut;
+  const email = props.userData;
+  const loggedIn = props.loggedIn;
+  const signOut = props.onSignOut;
 
     return(
     <header className="header">

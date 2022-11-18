@@ -47,6 +47,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    if (localStorage.getItem('token')) {
     api.getUserInfo()
     .then(data => {
       this.setState({
@@ -66,12 +67,22 @@ class App extends React.Component {
     .catch((err) => {
       console.log(err);
     })
-
+  }
     this.tokenCheck();
   }
 
   componentDidUpdate() {
-    if (this.state.loggedIn && this.state.cards.length === 0) {
+    if (localStorage.getItem('token') && this.state.cards.length === 0) {
+      api.getUserInfo()
+      .then(data => {
+        this.setState({
+          currentUser: data,
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
       api.getInitialCards()
     .then(data => {
       this.setState({
