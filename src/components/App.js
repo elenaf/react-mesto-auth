@@ -30,6 +30,7 @@ class App extends React.Component {
       isErrorTooltipOpen: false,
       selectedCard: null,
       loggedIn: false,
+      loadingData: true,
       currentUser: {
         name: '',
         about: ''
@@ -47,7 +48,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') && this.state.loadingData) {
+      this.setState({
+        loadingData: false,
+      });
+
     api.getUserInfo()
     .then(data => {
       this.setState({
@@ -72,7 +77,11 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (localStorage.getItem('token') && this.state.cards.length === 0) {
+    if (localStorage.getItem('token') && this.state.loadingData) {
+      this.setState({
+        loadingData: false,
+      });
+
       api.getUserInfo()
       .then(data => {
         this.setState({
@@ -234,6 +243,7 @@ class App extends React.Component {
       userData: {email: '', id: ''},
       cards: [],
       loggedIn: false,
+      loadingData: true,
     })
   }
 
