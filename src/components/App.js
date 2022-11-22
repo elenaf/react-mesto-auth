@@ -48,7 +48,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('token') && this.state.loadingData) {
+    if (this.state.loggedIn && this.state.loadingData) {
       this.setState({
         loadingData: false,
       });
@@ -77,7 +77,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (localStorage.getItem('token') && this.state.loadingData) {
+    if (this.state.loggedIn && this.state.loadingData) {
       this.setState({
         loadingData: false,
       });
